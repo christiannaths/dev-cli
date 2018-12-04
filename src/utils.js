@@ -26,4 +26,11 @@ const logger = (...args) => {
   return specialLogger;
 };
 
-export { logger };
+const exitIf = (condition, message) => {
+  if (!condition) return;
+
+  logger('error')(message);
+  process.exit(1);
+};
+
+export { logger, exitIf };

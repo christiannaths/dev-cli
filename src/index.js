@@ -1,8 +1,7 @@
 import program from 'commander';
 import * as application from '../package.json';
-import path from 'path';
-import fs from 'fs';
-import { logger } from './utils';
+import readConfig from './read-config';
+import execScript from './exec-script';
 
 program
   .version(application.version, '-v, --version')
@@ -10,14 +9,8 @@ program
   .option('-c, --config', 'Path to .devrc file');
 
 program.action((cmd) => {
-  const cwd = process.cwd();
-  const configFile = path.join(cwd, '.devrc');
-
-  if (fs.existsSync(configFile)) {
-    const { scripts } = JSON.parse(fs.readFileSync(configFile));
-    logger('debug')(`Reading config from ${configFile}`);
-    logger('debug')('scripts', scripts);
-  }
+  const config = readConfig();
+  return execScript(cmd, config.scripts);
 });
 
 program.parse(process.argv);

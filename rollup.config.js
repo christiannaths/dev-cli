@@ -9,7 +9,7 @@ export default {
     format: 'cjs',
   },
 
-  external: ['commander', 'colors', 'path', 'fs'],
+  external: ['commander', 'colors', 'path', 'fs', 'child_process'],
 
   plugins: [
     babel({
