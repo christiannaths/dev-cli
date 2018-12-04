@@ -1,0 +1,78 @@
+{
+  "name": "dev-cli",
+  "description": "A command-line productivity tool for developers",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "bin": {
+    "dev": "cli.js"
+  },
+  "scripts": {
+    "prestart": "npm link",
+    "start": "npm run build -- -w",
+    "build": "rollup -c rollup.config.js",
+    "format": "prettier --write *.{js,json,css,md}",
+    "precommit": "npm run build && npm run format && git add ."
+  },
+  "dependencies": {
+    "colors": "^1.3.2",
+    "commander": "^2.19.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/node": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "babel-eslint": "^9.0.0",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "eslint": "^5.9.0",
+    "eslint-config-react-app": "^3.0.5",
+    "eslint-plugin-flowtype": "^2.50.3",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "husky": "^1.2.0",
+    "rollup": "^0.67.4",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-json": "^3.1.0"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/env",
+        {
+          "targets": {
+            "node": "8"
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      [
+        "module-resolver",
+        {
+          "root": [
+            "./src"
+          ]
+        }
+      ]
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "prettier": {
+    "trailingComma": "all",
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true,
+    "arrowParens": "always",
+    "printWidth": 72,
+    "endOfLine": "lf"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit"
+    }
+  }
+}
