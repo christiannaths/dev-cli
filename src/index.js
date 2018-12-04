@@ -10,7 +10,7 @@ program
 
 program.action((cmd) => {
   const config = readConfig();
-  return execScript(cmd, config.scripts);
+  execScript(cmd, config.scripts);
 });
 
 program.parse(process.argv);

@@ -13,7 +13,7 @@ var fs = _interopDefault(require('fs'));
 var colors = _interopDefault(require('colors'));
 var childProcess = _interopDefault(require('child_process'));
 
-const version = '1.0.0';
+const version = '0.0.1';
 
 const debugLogger = (...args) => {
   if (!process.env.DEBUG) return null;
@@ -77,8 +77,6 @@ const readConfig = () => {
   return config;
 };
 
-// import path from 'path';
-
 const execScript = (cmd, scripts) => {
   exitIf(!scripts[cmd], 'Script does not exist');
   return scripts[cmd]();
@@ -90,6 +88,6 @@ program
   .option('-c, --config', 'Path to .devrc file');
 program.action((cmd) => {
   const config = readConfig();
-  return execScript(cmd, config.scripts);
+  execScript(cmd, config.scripts);
 });
 program.parse(process.argv);
