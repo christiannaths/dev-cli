@@ -1,5 +1,5 @@
 {
-  "name": "dev-cli",
+  "name": "@christiannaths/dev-cli",
   "description": "A command-line productivity tool for developers",
   "keywords": [
     "dev",

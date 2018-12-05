@@ -4,7 +4,7 @@ A stupid command-line tool to run scripts.
 
 ## Install
 
-~~npm install -g dev-cli~~ Coming soon. For now clone this repo and run `npm link`
+`npm install -g @christiannaths/dev-cli`
 
 Pop a `.devrc` file in your project directory and go to town.
 
