@@ -8,7 +8,7 @@ A stupid command-line tool to run scripts.
 
 `npm install -g @christiannaths/dev-cli`
 
-Pop a `.devrc` file in your project directory and go to town.
+Pop a `.devrc` file in your project directory and go to town. The "scripts" key in this file will be merged with that if `package.json`, should that file (and key) also exist.
 
 ```json
 {
