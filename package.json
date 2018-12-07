@@ -7,7 +7,8 @@
     "tools",
     "productivity"
   ],
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "build": "1",
   "main": "cli.js",
   "author": "Christian Naths <christiannaths@gmail.com> (https://christiannaths.com)",
   "homepage": "https://github.com/christiannaths/dev-cli",

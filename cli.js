@@ -13,7 +13,7 @@ var fs = _interopDefault(require('fs'));
 var colors = _interopDefault(require('colors'));
 var childProcess = _interopDefault(require('child_process'));
 
-const version = '0.0.1';
+const version = '0.1.0';
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
