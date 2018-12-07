@@ -7,7 +7,7 @@
     "tools",
     "productivity"
   ],
-  "version": "0.1.0",
+  "version": "0.1.1",
   "build": "1",
   "main": "cli.js",
   "author": "Christian Naths <christiannaths@gmail.com> (https://christiannaths.com)",
@@ -32,11 +32,15 @@
     "build": "rollup -c rollup.config.js",
     "format": "prettier --write *.{js,json,css,md}",
     "precommit": "npm run build && npm run format && git add .",
-    "test": "echo 'TODO: write tests'"
+    "test": "echo 'TODO: write tests'",
+    "preversion": "npm run build",
+    "version": "node scripts/version.js",
+    "prerelease": "git add . && git commit -m 'Automated release commit' && git tag -a $(node scripts/version.js get)"
   },
   "dependencies": {
     "colors": "^1.3.2",
-    "commander": "^2.19.0"
+    "commander": "^2.19.0",
+    "versiony-cli": "^1.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.0",

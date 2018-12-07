@@ -22,7 +22,7 @@ Pop a `.devrc` file in your project directory and go to town. The "scripts" key 
 
 ## Usage
 
-`dev [options] <cmd>`
+`$ dev [options] <cmd>`
 
 ## Options
 

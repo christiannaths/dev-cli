@@ -17,15 +17,10 @@ const mapExecutables = (scripts) => {
   return scripts;
 };
 
-const readConfigFrom = (filename) => {
-  const cwd = process.cwd();
+const readConfigFrom = (filename, relative = null) => {
+  const cwd = relative ? relative : process.cwd();
   const configFilePath = path.join(cwd, filename);
   const isPresent = fs.existsSync(configFilePath);
-
-  exitIf(
-    !isPresent && filename === '.devrc',
-    `Cannot find ${filename} file, exiting.`,
-  );
 
   if (!isPresent) return {};
 
@@ -39,15 +34,22 @@ const readConfigFrom = (filename) => {
 };
 
 const readConfig = () => {
+  const userConfig = readConfigFrom('.devrc', process.env.HOME);
   const devrcConfig = readConfigFrom('.devrc');
   const pkgConfig = readConfigFrom('package.json');
+
   const config = {
+    ...userConfig,
     ...pkgConfig,
     ...devrcConfig,
-    scripts: { ...pkgConfig.scripts, ...devrcConfig.scripts },
+    scripts: {
+      ...userConfig.scripts,
+      ...pkgConfig.scripts,
+      ...devrcConfig.scripts,
+    },
   };
 
-  logger('debug')('Config: ', config);
+  logger('debug')('Scripts: ', config.scripts);
 
   return config;
 };
