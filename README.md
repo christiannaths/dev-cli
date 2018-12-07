@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/christiannaths/dev-cli.svg?branch=master)](https://travis-ci.org/christiannaths/dev-cli)
+
 # Dev CLI
 
 A stupid command-line tool to run scripts.
