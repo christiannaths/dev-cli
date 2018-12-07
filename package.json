@@ -27,7 +27,8 @@
     "start": "npm run build -- -w",
     "build": "rollup -c rollup.config.js",
     "format": "prettier --write *.{js,json,css,md}",
-    "precommit": "npm run build && npm run format && git add ."
+    "precommit": "npm run build && npm run format && git add .",
+    "test": "echo 'TODO: write tests'"
   },
   "dependencies": {
     "colors": "^1.3.2",

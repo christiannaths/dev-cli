@@ -17,21 +17,37 @@ const mapExecutables = (scripts) => {
   return scripts;
 };
 
-const readConfig = () => {
+const readConfigFrom = (filename) => {
   const cwd = process.cwd();
-  const configFilePath = path.join(cwd, '.devrc');
+  const configFilePath = path.join(cwd, filename);
+  const isPresent = fs.existsSync(configFilePath);
 
   exitIf(
-    !fs.existsSync(configFilePath),
-    'Cannot find .devrc file, exiting.',
+    !isPresent && filename === '.devrc',
+    `Cannot find ${filename} file, exiting.`,
   );
+
+  if (!isPresent) return {};
 
   const configFile = fs.readFileSync(configFilePath);
   const config = JSON.parse(configFile);
   logger('debug')('Reading config from', configFilePath);
-  logger('debug')('Config: ', config);
 
   config.scripts = mapExecutables(config.scripts);
+
+  return config;
+};
+
+const readConfig = () => {
+  const devrcConfig = readConfigFrom('.devrc');
+  const pkgConfig = readConfigFrom('package.json');
+  const config = {
+    ...pkgConfig,
+    ...devrcConfig,
+    scripts: { ...pkgConfig.scripts, ...devrcConfig.scripts },
+  };
+
+  logger('debug')('Config: ', config);
 
   return config;
 };

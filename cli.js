@@ -15,6 +15,45 @@ var childProcess = _interopDefault(require('child_process'));
 
 const version = '0.0.1';
 
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true,
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    var ownKeys = Object.keys(source);
+
+    if (typeof Object.getOwnPropertySymbols === 'function') {
+      ownKeys = ownKeys.concat(
+        Object.getOwnPropertySymbols(source).filter(function(sym) {
+          return Object.getOwnPropertyDescriptor(
+            source,
+            sym,
+          ).enumerable;
+        }),
+      );
+    }
+
+    ownKeys.forEach(function(key) {
+      _defineProperty(target, key, source[key]);
+    });
+  }
+
+  return target;
+}
+
 const debugLogger = (...args) => {
   if (!process.env.DEBUG) return null;
   return console.log(...args);
@@ -62,23 +101,39 @@ const mapExecutables = (scripts) => {
   return scripts;
 };
 
-const readConfig = () => {
+const readConfigFrom = (filename) => {
   const cwd = process.cwd();
-  const configFilePath = path.join(cwd, '.devrc');
+  const configFilePath = path.join(cwd, filename);
+  const isPresent = fs.existsSync(configFilePath);
   exitIf(
-    !fs.existsSync(configFilePath),
-    'Cannot find .devrc file, exiting.',
+    !isPresent && filename === '.devrc',
+    `Cannot find ${filename} file, exiting.`,
   );
+  if (!isPresent) return {};
   const configFile = fs.readFileSync(configFilePath);
   const config = JSON.parse(configFile);
   logger('debug')('Reading config from', configFilePath);
-  logger('debug')('Config: ', config);
   config.scripts = mapExecutables(config.scripts);
   return config;
 };
 
+const readConfig = () => {
+  const devrcConfig = readConfigFrom('.devrc');
+  const pkgConfig = readConfigFrom('package.json');
+
+  const config = _objectSpread({}, pkgConfig, devrcConfig, {
+    scripts: _objectSpread({}, pkgConfig.scripts, devrcConfig.scripts),
+  });
+
+  logger('debug')('Config: ', config);
+  return config;
+};
+
 const execScript = (cmd, scripts) => {
-  exitIf(!scripts[cmd], 'Script does not exist');
+  exitIf(
+    !scripts[cmd],
+    `Cannot find script '${cmd}', check your .devrc or package.json file and try again.`,
+  );
   return scripts[cmd]();
 };
 
