@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - 8
+deploy:
+  provider: npm
+  email: christiannaths@gmail.com
+  api_key:
+    secure: h2jDNha3Y2CLv7OAROC/Fje7KPwFO/G8SZjv6vrhm0mlEUtrfYLloy+U+/ZhLMBw+skKVLrosZfm/yVK83mj8o9QfHR5gyvaa0ywMzST4BY6c/Q4DrlmZYJHroq2ipNx+npyEW1dh5z+2DBMIzWGfieOi8StBhc7G51y07wt4hMXMJHvBLTxldsDc0oqDibixknzNgUIAQVik4xfcIedSNzJgyhgIYiSDs4XyB81NTfXi7mthPG1DLp8DHuKkSKLeA0vXyawGqg9JYp6m6cBCW+aPvGXZsE0B7Rck/zvdibevqyH80MksBqpW6Mql+Wo8TrXUUs1qjLIESUcXOAW9sABbC7lqam7MuITakSxrdOlS7ZTDgpVfx0gvmf5TSdpVkkveI0LgKa6gzaHHK3N4vNkL6n3ArZMtJA4BrMXN4mg7b0n87yaFa+K9SiuYRILcg6gJFakNPw3rgNmIgi+2rCd5KcGwCne+XlvqQ4f50PSGm9/+p6Dmqlt7/JYXiFnABBaov/KkBpEG5Llshv4ZDr1559KWHTSCKm9/MMRaatMECovvKqEfQxWmjPHiOyGMv81lU3uHLk2NyA2BnJ1Py2qG3K3ZuyR7gJLgeW73pphejDJUgN/Gs02DruoexWBtSlk78HWt+jXxH0VsWDQ8mSsSxtwnUywUXn0oSGqmvs=
+  on:
+    tags: true
+  skip_cleanup: true
